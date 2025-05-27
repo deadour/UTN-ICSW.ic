@@ -1,14 +1,17 @@
-function suma(a, b) {
+// app.js
+
+// Función para calcular la suma de dos números
+function calcularSuma(a, b) {
     return a + b;
 }
 
-// Esto le dice a las pruebas: "Podés usar la función suma"
+// Exportamos la función para las pruebas
 if (typeof module !== "undefined") {
-    module.exports = { suma };
+    module.exports = { calcularSuma };
 }
 
-// Esto cambia el mensaje en la página, pero solo si estamos en un navegador
+// Manipulamos el DOM si estamos en un navegador
 if (typeof document !== "undefined") {
-    let pedacitoDePapel = document.getElementById("resultado");
-    pedacitoDePapel.innerText = "La suma de 2 + 3 es: " + suma(2, 3);
+    const elementoResultado = document.getElementById("resultado");
+    elementoResultado.innerText = `El resultado de sumar 2 + 3 es: ${calcularSuma(2, 3)}`;
 }
