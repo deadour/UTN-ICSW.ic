@@ -21,4 +21,4 @@ jobs:
     - name: Ensure Jest is Installed
       run: npm install jest --save-dev
     - name: Run tests
-      run: npx jest
+      run: chmod +x node_modules/.bin/jest && npx jest
