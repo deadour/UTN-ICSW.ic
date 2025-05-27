@@ -16,9 +16,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-    - name: Clean npm cache
-      run: npm cache clean --force
     - name: Install dependencies
-      run: npm install
+      run: npm ci
+    - name: Set execute permissions for binaries
+      run: chmod +x ./node_modules/.bin/*
     - name: Run tests
       run: npm test
