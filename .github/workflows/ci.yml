@@ -17,8 +17,8 @@ jobs:
       with:
         node-version: '18'
     - name: Install dependencies
-      run: npm ci
-    - name: Set execute permissions for binaries
-      run: chmod +x ./node_modules/.bin/*
+      run: npm install
+    - name: Ensure Jest is Installed
+      run: npm install jest --save-dev
     - name: Run tests
-      run: npm test
+      run: npx jest
