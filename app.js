@@ -16,7 +16,7 @@ function inicializarContenido() {
 // Función para reproducir el audio en loop
 function reproducirAudio() {
     if (typeof document !== "undefined") {
-        const audio = new Audio("/src/heyjude.mp3"); // Ruta absoluta desde la raíz
+        const audio = new Audio("src/heyjude.mp3"); // Ruta absoluta desde la raíz
         audio.loop = true;
         const playButton = document.getElementById("playButton");
         if (playButton) {
