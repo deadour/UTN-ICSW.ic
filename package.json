@@ -1,16 +1,19 @@
-
 {
   "name": "utn-icsw.ic",
   "version": "1.0.0",
   "description": "Integracion Continua.",
   "main": "app.js",
   "scripts": {
-      "test": "jest"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
