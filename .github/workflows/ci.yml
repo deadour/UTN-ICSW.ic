@@ -38,23 +38,23 @@ jobs:
           taiga-password: ${{ secrets.TAIGA_PASSWORD }}
           project-name: ${{ secrets.PROJECT_NAME }}
 
-notify-slack:
-    name: Notificar a slack
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: always()
+  notify-slack:
+      name: Notificar a slack
+      runs-on: ubuntu-latest
+      needs: build-and-test
+      if: always()
 
-    steps:
-      - name: Notificar éxito en el Pull Request
-        if: success() && github.event_name == 'pull_request'
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text": "✅ El PR #${{ github.event.pull_request.number }} fue exitoso.\n*Link:* https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+      steps:
+        - name: Notificar éxito en el Pull Request
+          if: success() && github.event_name == 'pull_request'
+          run: |
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text": "✅ El PR #${{ github.event.pull_request.number }} fue exitoso.\n*Link:* https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Notificar fallo en el Pull Request
-        if: failure() && github.event_name == 'pull_request'
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"❌ El PR #${{ github.event.pull_request.number }} falló en los tests o el build.\n*Link:* https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+        - name: Notificar fallo en el Pull Request
+          if: failure() && github.event_name == 'pull_request'
+          run: |
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"❌ El PR #${{ github.event.pull_request.number }} falló en los tests o el build.\n*Link:* https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
