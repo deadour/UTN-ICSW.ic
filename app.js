@@ -6,7 +6,7 @@ function inicializarContenido() {
         const contentBox = document.querySelector(".content-box");
         contentBox.innerHTML = `
             <p>Hola, soy Eduardo</p>
-            <p>Mi canción favorita es 'Hey Jude'</p>
+            <p>Mi canción favorita es 'Hey Jued'</p>
         `;
     } else {
         console.warn("El elemento .content-box no está disponible.");
@@ -16,7 +16,7 @@ function inicializarContenido() {
 // Función para reproducir el audio en loop
 function reproducirAudio() {
     if (typeof document !== "undefined") {
-        const audio = new Audio("src/heyjude.mp3"); // Ruta absoluta desde la raíz
+        const audio = new Audio("src/heyjude.mp3");
         audio.loop = true;
         const playButton = document.getElementById("playButton");
         if (playButton) {
