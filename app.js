@@ -1,5 +1,7 @@
 // app.js
 
+
+
 // Función para inicializar el contenido
 function inicializarContenido() {
     if (typeof document !== "undefined" && document.querySelector(".content-box")) {
