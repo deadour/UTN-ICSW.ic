@@ -6,7 +6,7 @@ function inicializarContenido() {
         const contentBox = document.querySelector(".content-box");
         contentBox.innerHTML = `
             <p>Hola, soy Eduardo</p>
-            <p>Mi canción favorita es 'Hey Jude'</p>
+            <p>Mi canción favorita es 'Hey Jued'</p>
         `;
     } else {
         console.warn("El elemento .content-box no está disponible.");
