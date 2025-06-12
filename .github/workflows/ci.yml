@@ -1,15 +1,17 @@
-name: Mi Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -22,3 +24,16 @@ jobs:
       run: npm install jest --save-dev
     - name: Run tests
       run: chmod +x node_modules/.bin/jest && npx jest
+
+  update-taiga:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update Taiga User Story
+        uses: lauacosta/backlogr-action@v0.0.2
+        with:
+          taiga-username: ${{ secrets.TAIGA_USERNAME }}
+          taiga-password: ${{ secrets.TAIGA_PASSWORD }}
+          project-name: ${{ secrets.PROJECT_NAME }}

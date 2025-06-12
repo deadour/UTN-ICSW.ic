@@ -1,0 +1,52 @@
+name: Update Taiga User Stories
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  update-taiga:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to access full git history for commit parsing
+
+      - name: Update Taiga User Story
+        id: taiga
+        uses: lauacosta/backlogr-action@v0.0.2
+        with:
+          taiga-username: ${{ secrets.TAIGA_USERNAME }}
+          taiga-password: ${{ secrets.TAIGA_PASSWORD }}
+          project-name: ${{ secrets.PROJECT_NAME }}
+
+      - name: Handle Success
+        if: steps.taiga.outputs.success == 'true'
+        run: |
+          echo "✅ Successfully updated User Story #${{ steps.taiga.outputs.user-story-id }}"
+          echo "Action taken: ${{ steps.taiga.outputs.action-taken }}"
+
+      - name: Handle Failure
+        if: steps.taiga.outputs.success == 'false'
+        run: |
+          echo "❌ Failed to update Taiga User Story"
+          echo "This might be due to invalid commit format or Taiga connectivity issues"
+
+      - name: Comment on PR
+        if: steps.taiga.outputs.success == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Taiga User Story #${{ steps.taiga.outputs.user-story-id }} updated: **${{ steps.taiga.outputs.action-taken }}**`
+            })
